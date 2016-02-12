@@ -12,7 +12,7 @@ include<bearings.scad>
 
 $fn = 96;
 
-render_part(5);
+render_part(1);
 
 module render_part(part_to_render) {
 	if (part_to_render == 1) end_motor();
@@ -114,9 +114,13 @@ module end_motor() {
 					motor = motor);
 
 		// keyhole opening for motor mount screws
-		// for (i = [-1, 1])
-		//	translate([i * motor[3] / 2, -motor[3] / 2, 0])
-		//		cylinder(r = 2.5, h = 5, center = true);
+		for (i = [-1, 1])
+			translate([i * motor[3] / 2, motor[3] / 2, 0])
+				cylinder(r = d_M2_5_cap/2, h = 12, center = true);
+        
+		for (i = [-1, 1])
+			translate([i * motor[3] / 2, -motor[3] / 2, 0])
+				cylinder(r = d_M2_5_cap/2, h = 12, center = true);
 	}
 }
 
