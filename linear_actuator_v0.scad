@@ -12,7 +12,7 @@ include<bearings.scad>
 
 $fn = 96;
 
-render_part(1);
+render_part(5);
 
 module render_part(part_to_render) {
 	if (part_to_render == 1) end_motor();
@@ -50,7 +50,7 @@ Secure plunger
 
 d_nozzle = 0.75;
 
-motor = NEMA17;
+motor = NEMA11;
 cc_guides = 50;
 
 d_lead_screw = d_M5_screw;
@@ -84,8 +84,8 @@ d_clamp_screw_nut = d_M3_nut;
 
 
 // syringe pump:
-d_plunger = 32; // diameter of the plunger end
-d_syringe = 25; // diameter of the syringe body - sets size of syringe holder
+d_plunger = 25; // diameter of the plunger end
+d_syringe = 20; // diameter of the syringe body - sets size of syringe holder
 t_hook = 5; // thickness of the hook for securing syringe to actuator
 d_plunger_max = 32; // this sets the spacing for screws on the plunger retainer and carriage
 d_plunger_retainer = d_plunger_max + 12;
@@ -372,7 +372,7 @@ module clamp_syringe_pump() {
 	t_syringe_clamp = 8;
 
 	difference() {
-				union() {
+		union() {
 					clamp_body(t_syringe_clamp);
 
 					// idler bearing housing
@@ -383,11 +383,12 @@ module clamp_syringe_pump() {
 						hull()
 							for (i = [0, -1])
 								translate([0, i * d_syringe / 2, 0])
-									cylinder(r = d_syringe / 2 + 4, h = t_syringe_clamp, center = true);
+									cylinder(r = d_syringe / 2 + 6, h = t_syringe_clamp, center = true);
 
 				translate([0, -((w_ends + idler[0]) / 2 - idler[0]) / 2 - (w_ends + idler[0]) / 4 + (d_M3_nut + 2) / 2, 1])
-					cube([l_ends - 2 * (l_ends - cc_guides), d_M3_nut + 2, t_syringe_clamp + 2], center = true);
+					cube([l_ends - 2 * (l_ends - cc_guides), d_M3_nut + 2, t_syringe_clamp + 1.5], center = true);
 		}
+        
 
 		// lead screw
 		hull()
@@ -407,8 +408,12 @@ module clamp_syringe_pump() {
 					cylinder(r = d_guide_rod / 2, h = t_syringe_clamp + 1, center = true);
 
 		// syringe
-		translate([0, (idler[0] + d_syringe) / 2, 0])
-			cylinder(r = d_syringe / 2, h = t_syringe_clamp + 1, center = true);
+        hull() {
+            translate([0, (idler[0] + d_syringe) / 2, 0])
+                cylinder(r = d_syringe / 2, h = t_syringe_clamp + 1, center = true);
+            translate([0, (idler[0] + d_syringe), 0])
+                cylinder(r = d_syringe / 2, h = t_syringe_clamp + 1, center = true);
+        }
 
 		for (i = [-1, 1])
 			translate([i * (cc_guides / 2 + 1.5), -w_ends / 2 + offset_guides - d_guide_rod / 2 + 2, 0])
@@ -419,6 +424,8 @@ module clamp_syringe_pump() {
 					height = t_syringe_clamp + 1);
 	}
 }
+//clamp_syringe_pump();
+
 
 module syringe_hook() {
 	offset_hook = 15;
@@ -497,6 +504,7 @@ module syringe_plunger_retainer() {
 				sphere(10);
 		}
 }
+//syringe_plunger_retainer();
 
 module syringe_bungie() {
 	difference() {
