@@ -13,28 +13,27 @@ include<bearings.scad>
 
 $fn = 96;
 
-render_part(2);
+render_part(1);
 
 module render_part(part_to_render) {
 	if (part_to_render == 1) end_motor();
 
 	if (part_to_render == 2) end_idler();
 
-	if (part_to_render == 3) carriage();
+	if (part_to_render == 3) carriage_syringe_pump();
 
-	if (part_to_render == 4) carriage_syringe_pump();
+	if (part_to_render == 4) clamp_syringe_pump();
 
-	if (part_to_render == 5) clamp_syringe_pump();
-
-	if (part_to_render == 6) {
-		for (i = [-1, 1])
-			translate([i * (d_guide_rod + 2.5), 0, 0])
-				syringe_hook();
-	}
-
-	if (part_to_render == 7) {syringe_plunger_retainer();}
-
-	if (part_to_render == 8) syringe_bungie();
+	if (part_to_render == 5) syringe_plunger_retainer();
+    
+    
+//	if (part_to_render == 6) {
+//		for (i = [-1, 1])
+//			translate([i * (d_guide_rod + 2.5), 0, 0])
+//				syringe_hook();
+//	}
+//	if (part_to_render == 3) carriage();
+//	if (part_to_render == 8) syringe_bungie();
 }
 
 // [x, y, z] = [l, w, t]
