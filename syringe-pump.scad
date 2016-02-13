@@ -13,7 +13,7 @@ include<bearings.scad>
 
 $fn = 96;
 
-render_part(1);
+render_part(5);
 
 module render_part(part_to_render) {
 	if (part_to_render == 1) end_motor();
@@ -51,7 +51,7 @@ d_nozzle = 0.75;
 motor = NEMA11;
 cc_guides = 50;
 
-d_lead_screw = d_M5_screw;
+d_lead_screw = d_M5_screw + .4;
 d_lead_nut = d_M5_nut;
 h_lead_nut = h_M5_nut;
 od_antibacklash_spring = 7;

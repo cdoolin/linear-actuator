@@ -22,24 +22,26 @@ This program is free software: you can redistribute it and/or modify
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+include<fasteners.scad>
+
 $fn = 50;
 
 
-motor_r = 5/2;
-z_rod_r = 5/2;
+motor_r = d_M5_screw / 2;
+z_rod_r = d_M5_screw / 2;
 
-thickness = 5; // Coupler thickness
+thickness = 5.; // Coupler thickness
 total_len = 30; // Coupler Length
 
 // Mounting Screw specs
-screw_r = 3/2;
-screw_nut = 5.8/2;
-screw_head = 5.8/2;
+screw_r = d_M3_screw/2;
+screw_nut = d_M3_nut/2;
+screw_head = d_M3_cap/2;
 
-gap_size = .4; // Space to remove between the two halves (x2), should be same as flex_chamber_size to avoid edges
+gap_size = .5; // Space to remove between the two halves (x2), should be same as flex_chamber_size to avoid edges
 
 // Flex Chamber Specs
-flex_chamber_size = .4; // Opening size
+flex_chamber_size = .5; // Opening size
 
 flex_chamber_holes = 6; // per total
 flex_chamber_dist = 2; // Separation distance the whole chamber
@@ -59,29 +61,29 @@ union() {
 translate([0,0,-(((z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2)/2)+gap_size])cube([((z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2)*2,total_len+5,(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2],true);
 
 // Shaft Holes
-translate([0,(total_len/4)+(flex_chamber_dist),0])rotate([90,0,0])cylinder(r=motor_r,h=total_len/2,center=true, $fn=10);
-translate([0,-((total_len/4)+(flex_chamber_dist)),0])rotate([90,0,0])cylinder(r=z_rod_r,h=total_len/2,center=true, $fn=10);
+translate([0,(total_len/4)+(flex_chamber_dist),0])rotate([90,0,0])cylinder(r=motor_r,h=total_len/2,center=true, $fn=20);
+translate([0,-((total_len/4)+(flex_chamber_dist)),0])rotate([90,0,0])cylinder(r=z_rod_r,h=total_len/2,center=true, $fn=20);
 
 // Screw Holes - Motor
 translate([motor_r+screw_r+0.5,(total_len/3),-1])cylinder(r=screw_r,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0);
 translate([-(motor_r+screw_r+0.5),(total_len/3),-1])cylinder(r=screw_r,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0);
 //Nut
-translate([motor_r+screw_r+0.5,(total_len/3),motor_r+(thickness/3)])cylinder(r=screw_nut,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0, $fn=6);
+translate([motor_r+screw_r+0.5,(total_len/3),motor_r+(thickness/6)])cylinder(r=screw_nut,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0, $fn=6);
 //Head
-translate([-(motor_r+screw_r+0.5),(total_len/3),motor_r+(thickness/3)])cylinder(r=screw_head,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0,$fn=100);
+translate([-(motor_r+screw_r+0.5),(total_len/3),motor_r+(thickness/6)])cylinder(r=screw_head,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0,$fn=100);
 
 
 // Screw Holes - Z Rod
 translate([z_rod_r+screw_r+0.5,-(total_len/3),-1])cylinder(r=screw_r,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0);
 translate([-(z_rod_r+screw_r+0.5),-(total_len/3),-1])cylinder(r=screw_r,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0);
 //Nut
-translate([z_rod_r+screw_r+0.5,-(total_len/3),z_rod_r+(thickness/3)])cylinder(r=screw_nut,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0, $fn=6);
+translate([z_rod_r+screw_r+0.5,-(total_len/3),z_rod_r+(thickness/6)])cylinder(r=screw_nut,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0, $fn=6);
 //Head
-translate([-(z_rod_r+screw_r+0.5),-(total_len/3),z_rod_r+(thickness/3)])cylinder(r=screw_head,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0,$fn=100);
+translate([-(z_rod_r+screw_r+0.5),-(total_len/3),z_rod_r+(thickness/6)])cylinder(r=screw_head,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0,$fn=100);
 
 //Flex Chambers
 difference() {
-	#for ( i = [0 :flex_chamber_holes-1] ) {
+	for ( i = [0 :flex_chamber_holes-1] ) {
 		rotate([0,i*(360/(flex_chamber_holes))-flex_chamber_angle_shift,0])hull() {
 		translate([0,flex_chamber_dist/2,0])cylinder(r=flex_chamber_size,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0);
 		translate([0,-flex_chamber_dist/2,0])cylinder(r=flex_chamber_size,h=(z_rod_r > motor_r?z_rod_r:motor_r)+thickness+2,center=0);

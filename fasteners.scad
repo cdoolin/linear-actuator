@@ -1,6 +1,6 @@
-d_M2_screw = 2.3; 
-d_M2_screw_head = 4; 
-h_M2_screw_head = 2; 
+d_M2_screw = 2.3;
+d_M2_screw_head = 4;
+h_M2_screw_head = 2;
 
 d_M2_5_screw = 3.1; // 0.5 add't for clearance
 d_M2_5_screw_head = 5; // 0.5 add't for clearance
@@ -11,12 +11,12 @@ d_M2_5_cap = 5.5;
 h_M2_5_cap = 2.5;
 h_M2_5_washer = 0.45;
 
-d_M3_screw = 3.5; // measured 2.9
+d_M3_screw = 3.7; // CD was 3.5  // measured 2.9
 d_M3_screw_head = 6.2; // measured 5.5
 d_M3_washer = 6.9; // measured 6.7
-d_M3_nut = 6.2;
+d_M3_nut = 6.4; // CD was 6.2
 h_M3_nut = 2.7; // measured 2.35
-d_M3_cap = 6.0;
+d_M3_cap = 6.5; // CD was 6.0
 h_M3_cap = 3;
 h_M3_washer = 0.5;
 
