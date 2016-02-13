@@ -4,7 +4,8 @@
 // the Michigan Tech Open Sustainability Technology Research Group
 // http://www.appropedia.org/Category:MOST
 // It is released under CC-BY-SA
-// includes may be found at http://github.com/mtu-most/most-scad-libraries
+
+
 
 include<fasteners.scad>
 include<steppers.scad>
@@ -12,7 +13,7 @@ include<bearings.scad>
 
 $fn = 96;
 
-render_part(1);
+render_part(2);
 
 module render_part(part_to_render) {
 	if (part_to_render == 1) end_motor();
@@ -39,13 +40,11 @@ module render_part(part_to_render) {
 // [x, y, z] = [l, w, t]
 
 /*
-
 No moving motor!
 Simple loading
 Simple cleaning
 Protect motor
 Secure plunger
-
 */
 
 d_nozzle = 0.75;
@@ -135,7 +134,7 @@ module end_idler() {
 				translate([0, -((w_ends + idler[0]) / 2 - idler[0]) / 2, 0])
 					cube([l_ends - (l_ends - cc_guides), (w_ends + idler[0]) / 2, t_idler_end], center = true);
 
-				clamp_relief(t_motor_end, pad_guide_ends);
+				clamp_relief(t_idler_end, pad_guide_ends);
 			}
 
 		}
